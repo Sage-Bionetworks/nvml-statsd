@@ -7,7 +7,7 @@ from pynvml import *
 
 def main(argv=None): # IGNORE:C0111
     # add library to search path
-    os.environ['PATH'] += ":"+os.environ['NVML_PATH']
+    #os.environ['PATH'] += ":"+os.environ['NVML_PATH']
     nvmlInit()
     c = statsd.StatsClient('localhost', 8125)
     
