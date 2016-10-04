@@ -3,7 +3,7 @@ This Python project integrates the NVIDIA management library with statsd to repo
 Example run command:
 ```
 docker run -d \
--e statsd_host=$(docker-machine ip ${DOCKER_MACHINE_NAME})
+-e statsd_host=$(docker-machine ip ${DOCKER_MACHINE_NAME}) \
 --device /dev/nvidia0:/dev/nvidia0 \
 --device /dev/nvidia1:/dev/nvidia1 \
 --device /dev/nvidia2:/dev/nvidia2 \
@@ -16,4 +16,3 @@ docker run -d \
 ```
 Note:  using `nvidia-docker run` rather than `docker-run` allows you to omit the device mounts, which nvidia-docker will add for you.
 
-Update: I realize that this probably won't work because the Python statsd package will try to talk to 'locakl
