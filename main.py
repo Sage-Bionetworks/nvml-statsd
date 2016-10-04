@@ -14,11 +14,10 @@ def main(argv=None):
     while (True): # TODO if there's a shutdown signal then break from this loop
         for i in range(deviceCount):
             handle = nvmlDeviceGetHandleByIndex(i)
-            print "Device", i, ":", nvmlDeviceGetName(handle)
             info = nvmlDeviceGetMemoryInfo(handle)
-            c.gauge("Total Memory GPU-"+i, info.total)
-            c.gauge("Free Memory GPU-"+i, info.free)
-            c.gauge("Used Memory GPU-"+i, info.used)
+            c.gauge("Total Memory GPU-"+str(i), info.total)
+            c.gauge("Free Memory GPU-"+str(i), info.free)
+            c.gauge("Used Memory GPU-"+str(i), info.used)
         time.sleep(60)
     
     nvmlShutdown()
