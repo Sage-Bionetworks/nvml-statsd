@@ -3,10 +3,11 @@
 import statsd
 from pynvml import *
 import time
+import os
 
 def main(argv=None):
     nvmlInit()
-    c = statsd.StatsClient('localhost', 8125)
+    c = statsd.StatsClient(os.environ['statsd_host'], 8125)
     
     print "Driver Version:", nvmlSystemGetDriverVersion()
     deviceCount = nvmlDeviceGetCount()
@@ -15,9 +16,9 @@ def main(argv=None):
         for i in range(deviceCount):
             handle = nvmlDeviceGetHandleByIndex(i)
             info = nvmlDeviceGetMemoryInfo(handle)
-            c.gauge("Total Memory GPU-"+str(i), info.total)
-            c.gauge("Free Memory GPU-"+str(i), info.free)
-            c.gauge("Used Memory GPU-"+str(i), info.used)
+            c.gauge("gpu.memory.total-"+str(i), info.total)
+            c.gauge("gpu.memory.free-"+str(i), info.free)
+            c.gauge("gpu.memory.used-"+str(i), info.used)
         time.sleep(60)
     
     nvmlShutdown()
